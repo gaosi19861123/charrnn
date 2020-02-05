@@ -22,11 +22,10 @@ def train(**kwargs:dict) -> None:
     dataloader = t.utils.data.DataLoader(
         data, 
         batch_size=opt.batch_size,
-        shuffle = True,
-        num_workers = 1   
+        shuffle = True,   
         )
     
-    model = PoetryModel(len(word2ix), 128, 256)
+    model = PoetryModel(len(word2ix), 2, 2)
     optimizer = t.optim.Adam(model.parameters(), lr=opt.lr)
     criterion = nn.CrossEntropyLoss()
     if opt.model_path:
@@ -48,30 +47,30 @@ def train(**kwargs:dict) -> None:
             loss.backward()
             optimizer.step()
 
-            if (1 + ii)%opt.plot_every == 0:
-                if os.path.exists(opt.debug_file):
-                    ipdb.set_trace()
+            #if (1 + ii)%opt.plot_every == 0:
+            #    if os.path.exists(opt.debug_file):
+            #        ipdb.set_trace()
             
-                poetrys = \
-                    [[ix2word[_word] for _word in data_[:, iii]]
-                        for _iii in range(data_.size(1))][:16]
+            #    poetrys = \
+            #        [[ix2word[_word] for _word in data_[:, iii]]
+            #            for _iii in range(data_.size(1))][:16]
 
-                vis.text("</br>".join([" ".join(poetry) 
-                        for poetry in poetrys]), 
-                        win="origin_poem")
+            #    vis.text("</br>".join([" ".join(poetry) 
+            #            for poetry in poetrys]), 
+            #            win="origin_poem")
             
-                gen_poetries = []
+            #    gen_poetries = []
                 
-                for word in list():
-                    gen_poetry = " ".join(generate(model, word, ix2word, word2ix))
-                    gen_poetries.append(gen_poetry)
+            #    for word in list():
+            #        gen_poetry = " ".join(generate(model, word, ix2word, word2ix))
+            #        gen_poetries.append(gen_poetry)
                 
-                vis.text("</br>".join(''.join(poetry) for poetry in gen_poetries]),
-                    win="gen_poem")
+                #vis.text("</br>".join(''.join(poetry) for poetry in gen_poetries]),
+                #    win="gen_poem")
                 
-    t.save(model.state_dict(), "%s_%s.pth" %(opt.model_prefix, epoch))
+    #t.save(model.state_dict(), "%s_%s.pth" %(opt.model_prefix, epoch))
 
-                    
+train()                  
 
 
 

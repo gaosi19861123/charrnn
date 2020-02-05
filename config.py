@@ -9,7 +9,7 @@ class config(object):
     lr = 1e-3
     user_gpu = True
     epoch = 20
-    batch_size = 128 
+    batch_size = 10
     maxlen = 125
     plot_every =20
     use_env = True
