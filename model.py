@@ -25,7 +25,7 @@ class PoetryModel(nn.Module):
 
         embeds = self.embeddings(input_)
         output, hidden = self.lstm(embeds, (h_0, c_0))
-        output = self.linear(output.view(seq_len * batch_size, -1))
+        output = self.linear(output.reshape(seq_len * batch_size, -1))
         return output, hidden
 
     
