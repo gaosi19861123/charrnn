@@ -14,7 +14,7 @@ class PoetryModel(nn.Module):
         self.linear = nn.Linear(self.hidden_dim, vocab_size)
 
     def forward(self, input_, hidden=None):
-        seq_len, batch_size = input_.size()
+        batch_size, seq_len = input_.size()
         if hidden is None:
             h_0 = input_.data.new(2, batch_size, self.hidden_dim).fill_(0).float()
             c_0 = input_.data.new(2, batch_size, self.hidden_dim).fill_(0).float()
